@@ -1,0 +1,334 @@
+    <div class="fixed inset-y-0 left-0 z-50 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 transform transition-all duration-300 ease-in-out lg:translate-x-0"
+         [class.w-64]="!isCollapsed()"
+         [class.w-16]="isCollapsed()"
+         [class.translate-x-0]="isOpen()"
+         [class.-translate-x-full]="!isOpen()">
+      
+      <!-- Sidebar Header -->
+      <div class="flex items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center" [class.justify-center]="isCollapsed()">
+          <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold text-sm">N</span>
+          </div>
+          <span *ngIf="!isCollapsed()" class="ml-3 text-xl font-semibold text-gray-900 dark:text-white">NextCRM</span>
+        </div>
+        
+        <!-- Close button for mobile -->
+        <button (click)="toggle()" class="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="mt-4 px-2 space-y-1 overflow-y-auto h-full pb-20">
+        
+        <!-- Dashboard -->
+        <div class="space-y-1">
+          <button (click)="toggleSection('dashboard')" 
+                  class="group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
+                  [class.justify-center]="isCollapsed()">
+            <svg class="w-5 h-5" [class.mr-3]="!isCollapsed()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+            </svg>
+            <span *ngIf="!isCollapsed()" class="flex-1 text-left">Dashboard</span>
+            <svg *ngIf="!isCollapsed()" class="ml-auto w-4 h-4 transition-transform" [class.rotate-180]="dashboardOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <div *ngIf="dashboardOpen() && !isCollapsed()" class="ml-6 space-y-1">
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Overview</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Sales Performance</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Customer Insights</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Tasks & Reminders</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Notifications</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">AI Insights</a>
+          </div>
+        </div>
+
+        <!-- Leads & Opportunities -->
+        <div class="space-y-1">
+          <button (click)="toggleSection('leads')" 
+                  class="group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-purple-600 bg-purple-50 dark:text-purple-400 dark:bg-purple-900/20"
+                  [class.justify-center]="isCollapsed()">
+            <svg class="w-5 h-5" [class.mr-3]="!isCollapsed()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+            <span *ngIf="!isCollapsed()" class="flex-1 text-left">Leads & Opportunities</span>
+            <svg *ngIf="!isCollapsed()" class="ml-auto w-4 h-4 transition-transform" [class.rotate-180]="leadsOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <div *ngIf="leadsOpen() && !isCollapsed()" class="ml-6 space-y-1">
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-purple-600 bg-purple-100 dark:text-purple-400 dark:bg-purple-900/30">All Leads</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Add Lead</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Lead Pipeline</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Lead Scoring</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Opportunities</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Lost Leads</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Import / Export Leads</a>
+          </div>
+        </div>
+
+        <!-- Contacts & Accounts -->
+        <div class="space-y-1">
+          <button (click)="toggleSection('contacts')" 
+                  class="group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
+                  [class.justify-center]="isCollapsed()">
+            <svg class="w-5 h-5" [class.mr-3]="!isCollapsed()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+            </svg>
+            <span *ngIf="!isCollapsed()" class="flex-1 text-left">Contacts & Accounts</span>
+            <svg *ngIf="!isCollapsed()" class="ml-auto w-4 h-4 transition-transform" [class.rotate-180]="contactsOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <div *ngIf="contactsOpen() && !isCollapsed()" class="ml-6 space-y-1">
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Contacts List</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Add Contact</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Companies / Accounts</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Add Company</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Relationship Mapping</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Communication History</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Notes & Attachments</a>
+          </div>
+        </div>
+
+        <!-- Sales & Deals -->
+        <div class="space-y-1">
+          <button (click)="toggleSection('sales')" 
+                  class="group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
+                  [class.justify-center]="isCollapsed()">
+            <svg class="w-5 h-5" [class.mr-3]="!isCollapsed()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+            <span *ngIf="!isCollapsed()" class="flex-1 text-left">Sales & Deals</span>
+            <svg *ngIf="!isCollapsed()" class="ml-auto w-4 h-4 transition-transform" [class.rotate-180]="salesOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <div *ngIf="salesOpen() && !isCollapsed()" class="ml-6 space-y-1">
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Active Deals</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Create Deal</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Deal Stages</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Sales Forecast</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Revenue Analytics</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Commission Tracking</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Deal Notes</a>
+          </div>
+        </div>
+
+        <!-- Marketing -->
+        <div class="space-y-1">
+          <button (click)="toggleSection('marketing')" 
+                  class="group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
+                  [class.justify-center]="isCollapsed()">
+            <svg class="w-5 h-5" [class.mr-3]="!isCollapsed()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+            </svg>
+            <span *ngIf="!isCollapsed()" class="flex-1 text-left">Marketing</span>
+            <svg *ngIf="!isCollapsed()" class="ml-auto w-4 h-4 transition-transform" [class.rotate-180]="marketingOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <div *ngIf="marketingOpen() && !isCollapsed()" class="ml-6 space-y-1">
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Campaigns</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Add Campaign</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Automation Workflows</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Target Audience</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Marketing Analytics</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">A/B Testing</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">AI Campaign Suggestions</a>
+          </div>
+        </div>
+
+        <!-- Customer Support -->
+        <div class="space-y-1">
+          <button (click)="toggleSection('support')" 
+                  class="group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
+                  [class.justify-center]="isCollapsed()">
+            <svg class="w-5 h-5" [class.mr-3]="!isCollapsed()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <span *ngIf="!isCollapsed()" class="flex-1 text-left">Customer Support</span>
+            <svg *ngIf="!isCollapsed()" class="ml-auto w-4 h-4 transition-transform" [class.rotate-180]="supportOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <div *ngIf="supportOpen() && !isCollapsed()" class="ml-6 space-y-1">
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Tickets / Cases</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Add Ticket</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Assign Tickets</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Ticket Status</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Knowledge Base</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Customer Feedback</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">AI Chatbot</a>
+          </div>
+        </div>
+
+        <!-- Projects & Tasks -->
+        <div class="space-y-1">
+          <button (click)="toggleSection('projects')" 
+                  class="group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
+                  [class.justify-center]="isCollapsed()">
+            <svg class="w-5 h-5" [class.mr-3]="!isCollapsed()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+            </svg>
+            <span *ngIf="!isCollapsed()" class="flex-1 text-left">Projects & Tasks</span>
+            <svg *ngIf="!isCollapsed()" class="ml-auto w-4 h-4 transition-transform" [class.rotate-180]="projectsOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <div *ngIf="projectsOpen() && !isCollapsed()" class="ml-6 space-y-1">
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Projects List</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Add Project</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Tasks List</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Add Task</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Milestones</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Team Assignments</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Progress Tracking</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">AI Task Suggestions</a>
+          </div>
+        </div>
+
+        <!-- Inventory / Products -->
+        <div class="space-y-1">
+          <button (click)="toggleSection('inventory')" 
+                  class="group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
+                  [class.justify-center]="isCollapsed()">
+            <svg class="w-5 h-5" [class.mr-3]="!isCollapsed()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+            </svg>
+            <span *ngIf="!isCollapsed()" class="flex-1 text-left">Inventory / Products</span>
+            <svg *ngIf="!isCollapsed()" class="ml-auto w-4 h-4 transition-transform" [class.rotate-180]="inventoryOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <div *ngIf="inventoryOpen() && !isCollapsed()" class="ml-6 space-y-1">
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Product Catalog</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Add Product</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Stock Alerts</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Pricing & Discounts</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Product Categories</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Sales Linked Inventory Reports</a>
+          </div>
+        </div>
+
+        <!-- Finance / Billing -->
+        <div class="space-y-1">
+          <button (click)="toggleSection('finance')" 
+                  class="group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
+                  [class.justify-center]="isCollapsed()">
+            <svg class="w-5 h-5" [class.mr-3]="!isCollapsed()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span *ngIf="!isCollapsed()" class="flex-1 text-left">Finance / Billing</span>
+            <svg *ngIf="!isCollapsed()" class="ml-auto w-4 h-4 transition-transform" [class.rotate-180]="financeOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <div *ngIf="financeOpen() && !isCollapsed()" class="ml-6 space-y-1">
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Invoices</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Add Invoice</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Payments Received</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Expenses</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Profit / Loss</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Recurring Billing</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Tax Management</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">AI Financial Forecast</a>
+          </div>
+        </div>
+
+        <!-- Analytics & Reports -->
+        <div class="space-y-1">
+          <button (click)="toggleSection('analytics')" 
+                  class="group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
+                  [class.justify-center]="isCollapsed()">
+            <svg class="w-5 h-5" [class.mr-3]="!isCollapsed()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+            <span *ngIf="!isCollapsed()" class="flex-1 text-left">Analytics & Reports</span>
+            <svg *ngIf="!isCollapsed()" class="ml-auto w-4 h-4 transition-transform" [class.rotate-180]="analyticsOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <div *ngIf="analyticsOpen() && !isCollapsed()" class="ml-6 space-y-1">
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Custom Reports</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Sales Analytics</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Customer Insights</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Marketing Reports</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">AI Predictions</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Export Reports</a>
+          </div>
+        </div>
+
+        <!-- Automation & AI -->
+        <div class="space-y-1">
+          <button (click)="toggleSection('automation')" 
+                  class="group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
+                  [class.justify-center]="isCollapsed()">
+            <svg class="w-5 h-5" [class.mr-3]="!isCollapsed()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+            <span *ngIf="!isCollapsed()" class="flex-1 text-left">Automation & AI</span>
+            <svg *ngIf="!isCollapsed()" class="ml-auto w-4 h-4 transition-transform" [class.rotate-180]="automationOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <div *ngIf="automationOpen() && !isCollapsed()" class="ml-6 space-y-1">
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Workflow Automation</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Auto Task Assignment</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Lead Nurturing</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">AI Predictive Analytics</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">AI Notifications</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Smart Recommendations</a>
+          </div>
+        </div>
+
+        <!-- Settings -->
+        <div class="space-y-1">
+          <button (click)="toggleSection('settings')" 
+                  class="group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
+                  [class.justify-center]="isCollapsed()">
+            <svg class="w-5 h-5" [class.mr-3]="!isCollapsed()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <span *ngIf="!isCollapsed()" class="flex-1 text-left">Settings</span>
+            <svg *ngIf="!isCollapsed()" class="ml-auto w-4 h-4 transition-transform" [class.rotate-180]="settingsOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <div *ngIf="settingsOpen() && !isCollapsed()" class="ml-6 space-y-1">
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">User Management</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Add User</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Roles & Permissions</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Company Profile</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">CRM Preferences</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Email / SMS Settings</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Integrations</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Security & Audit Logs</a>
+            <a href="#" class="group flex items-center px-3 py-2 text-sm rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800">Backup & Restore</a>
+          </div>
+        </div>
+        
+      </nav>
+    </div>
+
+    <!-- Overlay for mobile -->
+    <div *ngIf="isOpen()" 
+         (click)="close()"
+         class="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden"></div>
