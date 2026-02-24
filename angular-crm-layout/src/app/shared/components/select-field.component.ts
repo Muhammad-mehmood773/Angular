@@ -36,8 +36,9 @@ export interface SelectOption {
       </button>
 
       <!-- Dropdown panel -->
+      <!-- max-h-56 -->
       <div *ngIf="isOpen()" 
-           class="absolute z-10 mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm border border-gray-200 dark:border-gray-600">
+      class="absolute z-10 mt-1 w-full bg-white dark:bg-gray-800 shadow-lg  rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm border border-gray-200 dark:border-gray-600">
         <div *ngFor="let option of options" 
              (click)="selectOption(option)"
              class="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
