@@ -23,7 +23,8 @@ interface Lead {
   standalone: true,
   imports: [CommonModule, SelectFieldComponent],
   template: `
-    <div class="bg-white dark:bg-gray-900 shadow-sm rounded-lg border border-gray-200 dark:border-gray-700">
+    <div class="p-6">
+      <div class="bg-white dark:bg-gray-900 shadow-sm rounded-lg border border-gray-200 dark:border-gray-700">
       
       <!-- Table Header with Stats -->
       <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
@@ -265,6 +266,7 @@ interface Lead {
             </nav>
           </div>
         </div>
+      </div>
       </div>
     </div>
   `

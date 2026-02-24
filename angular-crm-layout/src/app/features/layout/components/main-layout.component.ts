@@ -3,11 +3,12 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SidebarComponent } from './sidebar.component';
 import { HeaderComponent } from './header.component';
 import { LeadsTableSimpleComponent } from '../../leads/components/leads-table-simple.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, SidebarComponent, HeaderComponent, LeadsTableSimpleComponent],
+ imports: [CommonModule, RouterOutlet, SidebarComponent, HeaderComponent],
   template: `
     <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
       <!-- Sidebar -->
@@ -17,11 +18,11 @@ import { LeadsTableSimpleComponent } from '../../leads/components/leads-table-si
       <app-header (toggleSidebar)="handleSidebarToggle()" [sidebarCollapsed]="sidebarCollapsed()"></app-header>
       
       <!-- Main content -->
-      <main class="transition-all duration-300 ease-in-out pt-16"
-            [class.lg:ml-64]="!sidebarCollapsed()"
-            [class.lg:ml-16]="sidebarCollapsed()">
+      <main class="transition-all duration-300 ease-in-out pt-1"
+            [class.lg:ml-60]="!sidebarCollapsed()"
+            [class.lg:ml-1]="sidebarCollapsed()">
         <div class="p-6">
-          <app-leads-table-simple></app-leads-table-simple>
+         <router-outlet></router-outlet>
         </div>
       </main>
     </div>
